@@ -1,34 +1,34 @@
 - hosts: localhost
   tasks:
     - name: Install base workstation packages
-      include: base_packages.yml
+      include: tasks/base_packages.yml
       become: true
       when: ansible_env.WORKSTATION
 
     - name: Install docker 
-      include: docker.yml
+      include: tasks/docker.yml
       become: true
       when: ansible_env.WORKSTATION
 
     - name: Install Local User and Group Membership
-      include: user.yml
+      include: tasks/user.yml
       become: true
       when: ansible_env.WORKSTATION
 
     - name: Update Alternatives
-      include: alternatives.yml
+      include: tasks/alternatives.yml
       become: true
       when: ansible_env.WORKSTATION
 
     - name: Enable dnsmasq
-      include: dnsmasq.yml
+      include: tasks/dnsmasq.yml
       become: true
       when: ansible_env.WORKSTATION
 
     - name: Install Go
-      include: go.yml
+      include: tasks/go.yml
       become: true
       when: ansible_env.WORKSTATION
 
     - name: Install user packages
-      include: user_packages.yml
+      include: tasks/user_packages.yml
