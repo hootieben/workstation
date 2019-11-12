@@ -36,6 +36,3 @@
       include: tasks/user.yml
       become: true
       when: ansible_env.WORKSTATION
-
-    - name: Install user packages
-      include: tasks/user_packages.yml
