@@ -1,9 +1,24 @@
+- name: Get NM Config
+  shell: NetworkManager --print-config
+  register: nmconfig
+
+- name: debug
+  debug:
+    var: nmconfig
+
+- name: Test NM Config Location
+  stat:
+    path: /etc/NetworkManager/NetworkManager.conf
+  register: nmc
+
+
 - name: Install dnsmasq
   apt:
     force_apt_get: true
     update_cache: yes
     pkg:
       - dnsmasq
+  when: nmc.stat.exists
 
 - name: Disable systemd-resolved
   systemd:
@@ -11,13 +26,16 @@
     state: stopped
     enabled: false
   register: sdr
+  when: nmc.stat.exists
 
-- name: Enable dnsmasq
+- name: Disable dnsmasq
   systemd:
     name: dnsmasq
-    state: restarted
-    enabled: true
-  when: sdr.changed
+    state: stopped
+    enabled: false
+  when: 
+    - sdr.changed
+    - nmc.stat.exists
 
 - name: Set NM Config
   lineinfile:
@@ -26,6 +44,7 @@
     line: dns=dnsmasq
     state: present
     insertafter: '^[main]'
+  when: nmc.stat.exists
   register: nmdnsmasq
 
 - name: Restart NM

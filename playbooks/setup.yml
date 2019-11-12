@@ -20,12 +20,12 @@
       become: true
       when: ansible_env.WORKSTATION
 
-    - name: Enable dnsmasq
+    - name: Install dnsmasq
       include: tasks/dnsmasq.yml
       become: true
       when: 
         - ansible_env.WORKSTATION
-        - "'network-manager' not in ansible_facts.packages"
+        - "'network-manager' in ansible_facts.packages"
 
     - name: Install Go
       include: tasks/go.yml
