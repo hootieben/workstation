@@ -1,14 +1,20 @@
 #!/bin/bash
 
+set -exu
+
+SUDOREQ=0
 if [[ $EUID -ne 0 ]]; then
-	echo "Setup must be run as root"
-	exit 1
+	if sudo -n -v ; then
+		SUDOREQ=0
+	else
+		SUDOREQ=1
+	fi
 fi
 
-apt update
-apt install --yes software-properties-common git
-echo "Adding Ansible Repo GPG Key"
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
-echo "Adding Ansible PPA Repo"
-apt-add-repository --yes --update ppa:ansible/ansible
-apt install --yes ansible
+sudo ./init.sh
+
+if [[ $SUDOREQ -eq 1 ]]; then
+	ansible-playbook -K playbooks/setup.yml
+else
+	ansible-playbook playbooks/setup.yml
+fi
