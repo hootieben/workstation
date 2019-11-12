@@ -1,0 +1,51 @@
+  - name: Install Apt Packages
+    apt:
+      force_apt_get: true
+      update_cache: yes
+      pkg:
+      - curl
+      - neovim
+      - i3
+      - zsh
+      - fonts-powerline
+      - python3-gpg
+      - gnupg2
+      - gnupg-agent
+      - pinentry-curses
+      - scdaemon
+      - pcscd
+      - libusb-dev
+      - dex
+  - name: Gather Package Facts
+    package_facts:
+      manager: auto
+  - name: Install Chrome
+    apt:
+      force_apt_get: true
+      deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    when: "'google-chrome-stable' not in ansible_facts.packages"
+  - name: Install Slack
+    apt:
+      force_apt_get: true
+      deb: https://downloads.slack-edge.com/linux_releases/slack-desktop-4.1.2-amd64.deb
+    when: "'slack-desktop' not in ansible_facts.packages"
+  - name: Install Keybase
+    apt:
+      force_apt_get: true
+      deb: https://prerelease.keybase.io/keybase_amd64.deb 
+    when: "'keybase' not in ansible_facts.packages"
+  - name: Install Zoom
+    apt:
+      force_apt_get: true
+      deb: https://zoom.us/client/latest/zoom_amd64.deb
+    when: "'zoom' not in ansible_facts.packages"
+  - name: Install Dropbox
+    apt:
+      force_apt_get: true
+      deb: https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2019.02.14_amd64.deb
+    when: "'dropbox' not in ansible_facts.packages"
+  - name: Remove Unused Packages
+    apt:
+      force_apt_get: true
+      autoclean: yes
+

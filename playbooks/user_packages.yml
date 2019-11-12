@@ -1,0 +1,9 @@
+  - name: Check if Kitty Exists
+    stat:
+      path: ~/.local/kitty.app
+    register: kitty_app
+  - name: Install Kitty Shell
+    shell: curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+    args:
+      warn: false
+    when: kitty_app.stat.exists == false

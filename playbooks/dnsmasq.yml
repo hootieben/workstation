@@ -1,0 +1,43 @@
+- name: Install dnsmasq
+  apt:
+    force_apt_get: true
+    update_cache: yes
+    pkg:
+      - dnsmasq
+
+- name: Disable systemd-resolved
+  systemd:
+    name: systemd-resolved
+    state: stopped
+    enabled: false
+  register: sdr
+
+- name: Enable dnsmasq
+  systemd:
+    name: dnsmasq
+    state: restarted
+    enabled: true
+  when: sdr.changed
+
+- name: Set NM Config
+  lineinfile:
+    name: /etc/NetworkManager/NetworkManager.conf
+    regexp: '^dns='
+    line: dns=dnsmasq
+    state: present
+    insertafter: '^[main]'
+  register: nmdnsmasq
+
+- name: Restart NM
+  systemd:
+    name: NetworkManager
+    state: restarted
+  when: nmdnsmasq.changed
+
+- name: Set resolv.conf
+  file:
+    src: /var/run/NetworkManager/resolv.conf
+    dest: /etc/resolv.conf
+    state: link
+    force: true
+  when: nmdnsmasq.changed
