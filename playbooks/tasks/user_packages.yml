@@ -1,9 +1,9 @@
   - name: Check if Kitty Exists
     stat:
-      path: ~/.local/kitty.app
+      path: "{{ lu.home }}/.local/kitty.app"
     register: kitty_app
   - name: Install Kitty Shell
-    shell: curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+    shell: "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest={{ lu.home }}/.local launch=n"
     args:
       warn: false
     when: kitty_app.stat.exists == false
