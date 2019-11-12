@@ -14,7 +14,7 @@ fi
 sudo ./init.sh
 
 if [[ $SUDOREQ -eq 1 ]]; then
-	ansible-playbook -K playbooks/setup.yml
+	ansible-playbook -i playbooks/inventory -K playbooks/setup.yml
 else
-	ansible-playbook playbooks/setup.yml
+	ansible-playbook -i playbooks/inventory playbooks/setup.yml
 fi

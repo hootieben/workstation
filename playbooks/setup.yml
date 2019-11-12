@@ -1,17 +1,12 @@
 - hosts: localhost
   tasks:
+
+    - name: Gather Package Facts
+      package_facts:
+        manager: auto
+
     - name: Install base workstation packages
       include: tasks/base_packages.yml
-      become: true
-      when: ansible_env.WORKSTATION
-
-    - name: Install docker 
-      include: tasks/docker.yml
-      become: true
-      when: ansible_env.WORKSTATION
-
-    - name: Install Local User and Group Membership
-      include: tasks/user.yml
       become: true
       when: ansible_env.WORKSTATION
 
@@ -20,15 +15,24 @@
       become: true
       when: ansible_env.WORKSTATION
 
-    - name: Enable dnsmasq
-      include: tasks/dnsmasq.yml
+    - name: Install docker 
+      include: tasks/docker.yml
       become: true
       when: ansible_env.WORKSTATION
+
+    - name: Install dnsmasq
+      include: tasks/dnsmasq.yml
+      become: true
+      when: 
+        - ansible_env.WORKSTATION
+        - "'network-manager' in ansible_facts.packages"
 
     - name: Install Go
       include: tasks/go.yml
       become: true
       when: ansible_env.WORKSTATION
 
-    - name: Install user packages
-      include: tasks/user_packages.yml
+    - name: Install Local User and Group Membership
+      include: tasks/user.yml
+      become: true
+      when: ansible_env.WORKSTATION

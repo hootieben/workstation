@@ -4,3 +4,4 @@
     shell: /bin/zsh
     append: true
     groups: sudo, adm, docker
+  register: lu

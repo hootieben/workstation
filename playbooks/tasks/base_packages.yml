@@ -16,6 +16,7 @@
       - pcscd
       - libusb-dev
       - dex
+      - net-tools
   - name: Gather Package Facts
     package_facts:
       manager: auto
