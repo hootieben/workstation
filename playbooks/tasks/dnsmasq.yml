@@ -2,15 +2,10 @@
   shell: NetworkManager --print-config
   register: nmconfig
 
-- name: debug
-  debug:
-    var: nmconfig
-
 - name: Test NM Config Location
   stat:
     path: /etc/NetworkManager/NetworkManager.conf
   register: nmc
-
 
 - name: Install dnsmasq
   apt:
