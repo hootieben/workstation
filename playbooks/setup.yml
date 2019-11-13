@@ -32,6 +32,16 @@
       become: true
       when: ansible_env.WORKSTATION
 
+    - name: Install AWS CLI
+      include: tasks/aws_cli.yml
+      become: true
+      when: ansible_env.WORKSTATION
+
+    - name: Install 1P CLI
+      include: tasks/1packages.yml
+      become: true
+      when: ansible_env.WORKSTATION
+
     - name: Install Local User and Group Membership
       include: tasks/user.yml
       become: true
