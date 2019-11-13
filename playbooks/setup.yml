@@ -8,44 +8,46 @@
     - name: Install base workstation packages
       include: tasks/base_packages.yml
       become: true
-      when: ansible_env.WORKSTATION
+      when: ansible_env.WORKSTATION is defined
 
     - name: Update Alternatives
       include: tasks/alternatives.yml
       become: true
-      when: ansible_env.WORKSTATION
+      when: ansible_env.WORKSTATION is defined
 
     - name: Install docker 
       include: tasks/docker.yml
       become: true
-      when: ansible_env.WORKSTATION
+      when: ansible_env.WORKSTATION is defined
 
     - name: Install dnsmasq
       include: tasks/dnsmasq.yml
       become: true
       when: 
-        - ansible_env.WORKSTATION
+        - ansible_env.WORKSTATION is defined
         - "'network-manager' in ansible_facts.packages"
 
     - name: Install Go
       include: tasks/go.yml
       become: true
-      when: ansible_env.WORKSTATION
+      when: ansible_env.WORKSTATION is defined
 
     - name: Install AWS CLI
       include: tasks/aws_cli.yml
       become: true
-      when: ansible_env.WORKSTATION
+      when: ansible_env.WORKSTATION is defined
 
     - name: Install 1P CLI
       include: tasks/1password.yml
       become: true
-      when: ansible_env.WORKSTATION
+      when: ansible_env.WORKSTATION is defined
+      tags:
+          - 1p
 
     - name: Install Local User and Group Membership
       include: tasks/user.yml
       become: true
-      when: ansible_env.WORKSTATION
+      when: ansible_env.WORKSTATION is defined
       tags:
           - user
 
