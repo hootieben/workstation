@@ -38,7 +38,7 @@
       when: ansible_env.WORKSTATION
 
     - name: Install 1P CLI
-      include: tasks/1packages.yml
+      include: tasks/1password.yml
       become: true
       when: ansible_env.WORKSTATION
 
@@ -46,3 +46,12 @@
       include: tasks/user.yml
       become: true
       when: ansible_env.WORKSTATION
+      tags:
+          - user
+
+    - name: Install User Packages
+      include: tasks/user_packages.yml
+      become: true
+      become_user: hootieben
+      tags:
+          - user
