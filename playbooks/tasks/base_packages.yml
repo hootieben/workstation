@@ -25,6 +25,7 @@
       - jq
       - laptop-mode-tools
       - xautolock
+      - blueman
   - name: Gather Package Facts
     package_facts:
       manager: auto
