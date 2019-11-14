@@ -12,6 +12,14 @@
       tags:
           - packages
 
+    - name: Install Yubico Tools
+      include: tasks/yubico.yml
+      become: true
+      when: ansible_env.WORKSTATION is defined
+      tags:
+          - yubico
+          - yubikey
+
     - name: Update Alternatives
       include: tasks/alternatives.yml
       become: true
