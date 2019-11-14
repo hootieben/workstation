@@ -24,6 +24,7 @@
       - usbmount
       - jq
       - laptop-mode-tools
+      - xautolock
   - name: Gather Package Facts
     package_facts:
       manager: auto
