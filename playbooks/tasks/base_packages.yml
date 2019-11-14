@@ -26,6 +26,7 @@
       - laptop-mode-tools
       - xautolock
       - blueman
+      - python-pip
   - name: Gather Package Facts
     package_facts:
       manager: auto
@@ -59,6 +60,10 @@
     snap:
         name: hub
         classic: yes
+
+  - name: Install pre-commit
+    pip:
+        name: pre-commit
 
   - name: Remove Unused Packages
     apt:
