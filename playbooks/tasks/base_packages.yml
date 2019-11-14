@@ -52,6 +52,12 @@
       force_apt_get: true
       deb: https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2019.02.14_amd64.deb
     when: "'dropbox' not in ansible_facts.packages"
+
+  - name: Install hub
+    snap:
+        name: hub
+        classic: yes
+
   - name: Remove Unused Packages
     apt:
       force_apt_get: true
