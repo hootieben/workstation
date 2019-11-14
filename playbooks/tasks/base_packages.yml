@@ -23,6 +23,7 @@
       - fonts-firacode
       - usbmount
       - jq
+      - laptop-mode-tools
   - name: Gather Package Facts
     package_facts:
       manager: auto

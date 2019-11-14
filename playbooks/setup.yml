@@ -9,6 +9,8 @@
       include: tasks/base_packages.yml
       become: true
       when: ansible_env.WORKSTATION is defined
+      tags:
+          - packages
 
     - name: Update Alternatives
       include: tasks/alternatives.yml
