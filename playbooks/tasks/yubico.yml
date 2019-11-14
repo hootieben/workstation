@@ -11,3 +11,4 @@
           - yubikey-manager-qt
           - yubikey-personalization-gui
           - libpam-u2f
+          - libpam-yubico
