@@ -54,6 +54,13 @@
       tags:
           - 1p
 
+    - name: Install Clight
+      include: tasks/clight.yml
+      become: true
+      when: ansible_env.WORKSTATION is defined
+      tags:
+          - clight
+
     - name: Install Local User and Group Membership
       include: tasks/user.yml
       become: true
