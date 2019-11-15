@@ -27,6 +27,7 @@
       - xautolock
       - blueman
       - python-pip
+      - chromium-browser
   - name: Gather Package Facts
     package_facts:
       manager: auto
