@@ -28,6 +28,7 @@
       - blueman
       - python-pip
       - chromium-browser
+      - autorandr
   - name: Gather Package Facts
     package_facts:
       manager: auto
