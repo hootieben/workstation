@@ -13,3 +13,18 @@
       url: https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
       dest: "{{ lu.home }}/.local/bin/diff-so-fancy"
       mode: '0755'
+
+- name: Get tfenv
+  git:
+      repo: https://github.com/tfutils/tfenv.git
+      dest: "{{ lu.home }}/.tfenv"
+      update: no
+
+- name: Get Terraform
+  command: "{{ lu.home }}/.tfenv/bin/tfenv install 0.11.14"
+
+- name: Get Terragrunt
+  get_url:
+      url: https://github.com/gruntwork-io/terragrunt/releases/download/v0.18.7/terragrunt_linux_amd64
+      dest: "{{ lu.home }}/.local/bin/terragrunt"
+      mode: '0755'
