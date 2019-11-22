@@ -23,12 +23,12 @@
       - fonts-firacode
       - usbmount
       - jq
-      - laptop-mode-tools
       - xautolock
       - blueman
       - python-pip
       - chromium-browser
       - autorandr
+      - tlp
   - name: Gather Package Facts
     package_facts:
       manager: auto
