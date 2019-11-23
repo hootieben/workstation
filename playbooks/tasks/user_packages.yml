@@ -1,3 +1,9 @@
+- name: Create local bin dir
+  file:
+      path: "{{ lu.home }}/.local/bin"
+      state: directory
+
+
 - name: Check if Kitty Exists
   stat:
     path: "{{ lu.home }}/.local/kitty.app"
