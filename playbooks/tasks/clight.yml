@@ -12,7 +12,7 @@
           - dh-autoreconf
           - libglib2.0-dev
           - libudev-dev
-          - libusb-1.0.0-dev
+          - libusb-1.0-0-dev
           - libx11-dev
           - libxrandr-dev
           - libpolkit-gobject-1-dev
