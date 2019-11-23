@@ -29,6 +29,7 @@
       - chromium-browser
       - autorandr
       - tlp
+      - rofi
   - name: Gather Package Facts
     package_facts:
       manager: auto
@@ -37,11 +38,6 @@
       force_apt_get: true
       deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     when: "'google-chrome-stable' not in ansible_facts.packages"
-  - name: Install Slack
-    apt:
-      force_apt_get: true
-      deb: https://downloads.slack-edge.com/linux_releases/slack-desktop-4.1.2-amd64.deb
-    when: "'slack-desktop' not in ansible_facts.packages"
   - name: Install Keybase
     apt:
       force_apt_get: true
@@ -61,6 +57,11 @@
   - name: Install hub
     snap:
         name: hub
+        classic: yes
+
+  - name: Install Slack
+    snap:
+        name: slack
         classic: yes
 
   - name: Install pre-commit
