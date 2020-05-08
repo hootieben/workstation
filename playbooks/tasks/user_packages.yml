@@ -25,12 +25,23 @@
       repo: https://github.com/tfutils/tfenv.git
       dest: "{{ lu.home }}/.tfenv"
       update: no
+  tags:
+    - tf
 
 - name: Get Terraform
-  command: "{{ lu.home }}/.tfenv/bin/tfenv install 0.11.14"
+  command: "{{ lu.home }}/.tfenv/bin/tfenv install {{ tfver }}"
+  tags:
+    - tf
+
+- name: Get tgenv
+  git:
+      repo: https://github.com/cunymatthieu/tgenv.git
+      dest: "{{ lu.home }}/.tgenv"
+      update: no
+  tags:
+    - tg
 
 - name: Get Terragrunt
-  get_url:
-      url: https://github.com/gruntwork-io/terragrunt/releases/download/v0.18.7/terragrunt_linux_amd64
-      dest: "{{ lu.home }}/.local/bin/terragrunt"
-      mode: '0755'
+  command: "{{ lu.home }}/.tgenv/bin/tgenv install {{ tgver }}"
+  tags:
+    - tg
