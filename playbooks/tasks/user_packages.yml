@@ -44,6 +44,6 @@
 - name: Get Terragrunt
   command: "{{ lu.home }}/.tgenv/bin/tgenv install {{ tgver }}"
   environment:
-    PATH: '{{lu.home }}/.tgenv/bin:{{ ansible_env.PATH }}'
+    PATH: '{{ lu.home }}/.tgenv/bin:{{ ansible_env.PATH }}'
   tags:
     - tg
