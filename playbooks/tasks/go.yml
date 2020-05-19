@@ -1,3 +1,4 @@
+---
 - name: Check for Go installation
   stat:
     path: /usr/local/go
@@ -8,5 +9,5 @@
   unarchive:
     src: https://dl.google.com/go/go1.13.4.linux-amd64.tar.gz
     dest: /usr/local
-    remote_src: yes
+    remote_src: true
   when: g.stat.isdir is not defined
