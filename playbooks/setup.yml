@@ -1,3 +1,4 @@
+---
 - hosts: localhost
   tasks:
 
@@ -25,7 +26,7 @@
       become: true
       when: ansible_env.WORKSTATION is defined
 
-    - name: Install docker 
+    - name: Install docker
       include: tasks/docker.yml
       become: true
       when: ansible_env.WORKSTATION is defined
@@ -33,7 +34,7 @@
     - name: Install dnsmasq
       include: tasks/dnsmasq.yml
       become: true
-      when: 
+      when:
         - ansible_env.WORKSTATION is defined
         - "'network-manager' in ansible_facts.packages"
 

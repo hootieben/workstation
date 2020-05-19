@@ -41,7 +41,7 @@
   - name: Install Keybase
     apt:
       force_apt_get: true
-      deb: https://prerelease.keybase.io/keybase_amd64.deb 
+      deb: https://prerelease.keybase.io/keybase_amd64.deb
     when: "'keybase' not in ansible_facts.packages"
   - name: Install Zoom
     apt:
