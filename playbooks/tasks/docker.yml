@@ -1,15 +1,17 @@
+---
 - name: Install Docker Apt Key
   apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
 
 - name: Add Docker Repo
   apt_repository:
+    # yamllint disable-line rule:line-length
     repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
 
 - name: Install Docker
   apt:
     force_apt_get: true
-    update_cache: yes
+    update_cache: true
     pkg:
       - docker-ce
       - docker-ce-cli

@@ -1,3 +1,4 @@
+---
 - name: Update Default Editor
   alternatives:
     name: editor

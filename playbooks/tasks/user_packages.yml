@@ -1,7 +1,9 @@
+---
+
 - name: Create local bin dir
   file:
-      path: "{{ lu.home }}/.local/bin"
-      state: directory
+    path: "{{ lu.home }}/.local/bin"
+    state: directory
 
 
 - name: Check if Kitty Exists
@@ -9,25 +11,27 @@
     path: "{{ lu.home }}/.local/kitty.app"
   register: kitty_app
 - name: Install Kitty Shell
-  #shell: "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest={{ lu.home }}/.local launch=n"
+  # yamllint disable rule:line-length
   shell: |
     set -o pipefail
     curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest={{ lu.home }}/.local launch=n
+  # yamllint enable rule:line-length
   args:
     warn: false
   when: not kitty_app.stat.exists
 
 - name: Get diff-so-fancy
   get_url:
-      url: https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
-      dest: "{{ lu.home }}/.local/bin/diff-so-fancy"
-      mode: '0755'
+    url: https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy  # yamllint disable-line rule:line-length
+    dest: "{{ lu.home }}/.local/bin/diff-so-fancy"
+    mode: '0755'
 
 - name: Get tfenv
   git:
-      repo: https://github.com/tfutils/tfenv.git
-      dest: "{{ lu.home }}/.tfenv"
-      update: no
+    repo: https://github.com/tfutils/tfenv.git
+    dest: "{{ lu.home }}/.tfenv"
+    update: false
+    version: v2.0.0
   tags:
     - tf
 
@@ -38,9 +42,10 @@
 
 - name: Get tgenv
   git:
-      repo: https://github.com/cunymatthieu/tgenv.git
-      dest: "{{ lu.home }}/.tgenv"
-      update: no
+    repo: https://github.com/cunymatthieu/tgenv.git
+    dest: "{{ lu.home }}/.tgenv"
+    update: false
+    version: v0.0.3
   tags:
     - tg
 
