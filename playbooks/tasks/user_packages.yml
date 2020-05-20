@@ -9,7 +9,10 @@
     path: "{{ lu.home }}/.local/kitty.app"
   register: kitty_app
 - name: Install Kitty Shell
-  shell: "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest={{ lu.home }}/.local launch=n"
+  #shell: "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest={{ lu.home }}/.local launch=n"
+  shell: |
+    set -o pipefail
+    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest={{ lu.home }}/.local launch=n
   args:
     warn: false
   when: not kitty_app.stat.exists
