@@ -20,7 +20,7 @@
         remote_src: true
     - name: Install AWS CLI
       # yamllint disable-line rule:line-length
-      command: "{{ awscli_tmp.path }}/install -i /usr/local/aws -b /usr/local/bin/aws"
+      command: "{{ awscli_tmp.path }}/aws/install -i /usr/local/aws -b /usr/local/bin/aws"
   when: not awscli.stat.exists
   tags:
     - awscli
