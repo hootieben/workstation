@@ -64,7 +64,5 @@
 
     - name: Install User Packages
       include: tasks/user_packages.yml
-      become: true
-      become_user: hootieben
       tags:
         - user
