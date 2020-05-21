@@ -14,14 +14,14 @@
         manager: auto
 
     - name: Install base workstation packages
-      include: tasks/base_packages.yml
+      import_tasks: tasks/base_packages.yml
       become: true
       when: ansible_env.WORKSTATION is defined
       tags:
         - packages
 
     - name: Install Yubico Tools
-      include: tasks/yubico.yml
+      import_tasks: tasks/yubico.yml
       become: true
       when: ansible_env.WORKSTATION is defined
       tags:
@@ -29,42 +29,42 @@
         - yubikey
 
     - name: Update Alternatives
-      include: tasks/alternatives.yml
+      import_tasks: tasks/alternatives.yml
       become: true
       when: ansible_env.WORKSTATION is defined
 
     - name: Install docker
-      include: tasks/docker.yml
+      import_tasks: tasks/docker.yml
       become: true
       when: ansible_env.WORKSTATION is defined
 
     - name: Install Go
-      include: tasks/go.yml
+      import_tasks: tasks/go.yml
       become: true
       when: ansible_env.WORKSTATION is defined
 
     - name: Install AWS CLI
-      include: tasks/aws_cli.yml
+      import_tasks: tasks/aws_cli.yml
       become: true
       when:
         - ansible_env.WORKSTATION is defined
         - not ansible_check_mode
 
     - name: Install 1P CLI
-      include: tasks/1password.yml
+      import_tasks: tasks/1password.yml
       become: true
       when: ansible_env.WORKSTATION is defined
       tags:
         - 1p
 
     - name: Install Local User and Group Membership
-      include: tasks/user.yml
+      import_tasks: tasks/user.yml
       become: true
       when: ansible_env.WORKSTATION is defined
       tags:
         - user
 
     - name: Install User Packages
-      include: tasks/user_packages.yml
+      import_tasks: tasks/user_packages.yml
       tags:
         - user
