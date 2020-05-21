@@ -9,17 +9,21 @@
   stat:
     path: "{{ ansible_env.HOME }}/.local/kitty.app"
   register: kitty_app
+  tags:
+    - kitty
 
 - name: Install Kitty Shell
   # yamllint disable rule:line-length
   shell: |
     set -o pipefail
-    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest={{ lu.home }}/.local launch=n
+    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest={{ ansible_env.HOME }}/.local launch=n
   # yamllint enable rule:line-length
   args:
     warn: false
     executable: /bin/bash
-  when: not kitty_app.stat.exists
+    # when: not kitty_app.stat.exists
+  tags:
+    - kitty
 
 - name: Get diff-so-fancy
   get_url:
