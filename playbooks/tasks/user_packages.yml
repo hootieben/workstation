@@ -18,6 +18,7 @@
   # yamllint enable rule:line-length
   args:
     warn: false
+    executable: /bin/bash
   when: not kitty_app.stat.exists
 
 - name: Get diff-so-fancy
