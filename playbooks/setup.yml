@@ -1,5 +1,9 @@
 ---
 - hosts: localhost
+
+  vars_files:
+    - vars/common.yml
+
   tasks:
 
     - name: Gather Package Facts

@@ -1,1 +1,1 @@
-localhost ansible_connection=local tfver=0.12.24 tgver=0.23.12 golangver=1.14.3
+localhost ansible_connection=local
