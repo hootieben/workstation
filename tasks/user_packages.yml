@@ -31,29 +31,6 @@
     dest: "{{ ansible_env.HOME }}/.local/bin/diff-so-fancy"
     mode: '0755'
 
-- name: Check if tfenv exists
-  stat:
-    path: "{{ ansible_env.HOME }}/.tfenv/bin/tfenv"
-  register: tfenv
-  tags:
-    - tf
-    - tfenv
-
-- name: Install TFENV and Terraform
-  block:
-    - name: Install TFENV
-      git:
-        repo: https://github.com/tfutils/tfenv.git
-        dest: "{{ ansible_env.HOME }}/.tfenv"
-        update: false
-        version: v2.0.0
-    - name: Get Terraform
-      command: "{{ ansible_env.HOME }}/.tfenv/bin/tfenv install {{ tfver }}"
-  when: not tfenv.stat.exists
-  tags:
-    - tf
-    - tfenv
-
 - name: Check if tgenv exists
   stat:
     path: "{{ ansible_env.HOME }}/.tgenv/bin/tgenv"

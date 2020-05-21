@@ -68,3 +68,10 @@
       import_tasks: tasks/user_packages.yml
       tags:
         - user
+
+    - name: Install Terraform
+      import_tasks: tasks/terraform.yml
+      become: true
+      become_user: "{{ user }}"
+      tags:
+        - tf
