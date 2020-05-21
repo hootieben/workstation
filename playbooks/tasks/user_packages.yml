@@ -21,7 +21,7 @@
   args:
     warn: false
     executable: /bin/bash
-    # when: not kitty_app.stat.exists
+  when: not kitty_app.stat.exists
   tags:
     - kitty
 
