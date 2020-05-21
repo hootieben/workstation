@@ -1,49 +1,75 @@
+---
 - name: Create local bin dir
   file:
-      path: "{{ lu.home }}/.local/bin"
-      state: directory
+    path: "{{ ansible_env.HOME }}/.local/bin"
+    state: directory
 
 
 - name: Check if Kitty Exists
   stat:
-    path: "{{ lu.home }}/.local/kitty.app"
+    path: "{{ ansible_env.HOME }}/.local/kitty.app"
   register: kitty_app
+
 - name: Install Kitty Shell
-  shell: "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest={{ lu.home }}/.local launch=n"
+  # yamllint disable rule:line-length
+  shell: |
+    set -o pipefail
+    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest={{ lu.home }}/.local launch=n
+  # yamllint enable rule:line-length
   args:
     warn: false
-  when: kitty_app.stat.exists == false
+  when: not kitty_app.stat.exists
 
 - name: Get diff-so-fancy
   get_url:
-      url: https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
-      dest: "{{ lu.home }}/.local/bin/diff-so-fancy"
-      mode: '0755'
+    url: https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy  # yamllint disable-line rule:line-length
+    dest: "{{ ansible_env.HOME }}/.local/bin/diff-so-fancy"
+    mode: '0755'
 
-- name: Get tfenv
-  git:
-      repo: https://github.com/tfutils/tfenv.git
-      dest: "{{ lu.home }}/.tfenv"
-      update: no
+- name: Check if tfenv exists
+  stat:
+    path: "{{ ansible_env.HOME }}/.tfenv/bin/tfenv"
+  register: tfenv
   tags:
     - tf
+    - tfenv
 
-- name: Get Terraform
-  command: "{{ lu.home }}/.tfenv/bin/tfenv install {{ tfver }}"
+- name: Install TFENV and Terraform
+  block:
+    - name: Install TFENV
+      git:
+        repo: https://github.com/tfutils/tfenv.git
+        dest: "{{ ansible_env.HOME }}/.tfenv"
+        update: false
+        version: v2.0.0
+    - name: Get Terraform
+      command: "{{ ansible_env.HOME }}/.tfenv/bin/tfenv install {{ tfver }}"
+  when: not tfenv.stat.exists
   tags:
     - tf
+    - tfenv
 
-- name: Get tgenv
-  git:
-      repo: https://github.com/cunymatthieu/tgenv.git
-      dest: "{{ lu.home }}/.tgenv"
-      update: no
+- name: Check if tgenv exists
+  stat:
+    path: "{{ ansible_env.HOME }}/.tgenv/bin/tgenv"
+  register: tgenv
   tags:
     - tg
+    - tgenv
 
-- name: Get Terragrunt
-  command: "{{ lu.home }}/.tgenv/bin/tgenv install {{ tgver }}"
-  environment:
-    PATH: '{{lu.home }}/.tgenv/bin:{{ ansible_env.PATH }}'
+- name: Install TFENV and Terragrunt
+  block:
+    - name: Install TFENV
+      git:
+        repo: https://github.com/cunymatthieu/tgenv.git
+        dest: "{{ ansible_env.HOME }}/.tgenv"
+        update: false
+        version: v0.0.3
+    - name: Install Terragrunt
+      command: "{{ ansible_env.HOME }}/.tgenv/bin/tgenv install {{ tgver }}"
+      environment:
+        PATH: '{{ ansibl_env.HOME }}/.tgenv/bin:{{ ansible_env.PATH }}'
+  when: not tgenv.stat.exists
   tags:
     - tg
+    - tgenv

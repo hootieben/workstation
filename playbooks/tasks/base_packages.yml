@@ -1,8 +1,9 @@
-  - name: Install Apt Packages
-    apt:
-      force_apt_get: true
-      update_cache: yes
-      pkg:
+---
+- name: Install Apt Packages
+  apt:
+    force_apt_get: true
+    update_cache: true
+    pkg:
       - curl
       - neovim
       - i3
@@ -30,46 +31,51 @@
       - autorandr
       - tlp
       - rofi
-  - name: Gather Package Facts
-    package_facts:
-      manager: auto
-  - name: Install Chrome
-    apt:
-      force_apt_get: true
-      deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-    when: "'google-chrome-stable' not in ansible_facts.packages"
-  - name: Install Keybase
-    apt:
-      force_apt_get: true
-      deb: https://prerelease.keybase.io/keybase_amd64.deb 
-    when: "'keybase' not in ansible_facts.packages"
-  - name: Install Zoom
-    apt:
-      force_apt_get: true
-      deb: https://zoom.us/client/latest/zoom_amd64.deb
-    when: "'zoom' not in ansible_facts.packages"
-  - name: Install Dropbox
-    apt:
-      force_apt_get: true
-      deb: https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2019.02.14_amd64.deb
-    when: "'dropbox' not in ansible_facts.packages"
+- name: Gather Package Facts
+  package_facts:
+    manager: auto
 
-  - name: Install hub
-    snap:
-        name: hub
-        classic: yes
+- name: Install Chrome
+  apt:
+    force_apt_get: true
+    # yamllint disable-line rule:line-length
+    deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  when: "'google-chrome-stable' not in ansible_facts.packages"
 
-  - name: Install Slack
-    snap:
-        name: slack
-        classic: yes
+- name: Install Keybase
+  apt:
+    force_apt_get: true
+    deb: https://prerelease.keybase.io/keybase_amd64.deb
+  when: "'keybase' not in ansible_facts.packages"
 
-  - name: Install pre-commit
-    pip:
-        name: pre-commit
+- name: Install Zoom
+  apt:
+    force_apt_get: true
+    deb: https://zoom.us/client/latest/zoom_amd64.deb
+  when: "'zoom' not in ansible_facts.packages"
 
-  - name: Remove Unused Packages
-    apt:
-      force_apt_get: true
-      autoclean: yes
+- name: Install Dropbox
+  apt:
+    force_apt_get: true
+    # yamllint disable-line rule:line-length
+    deb: https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2019.02.14_amd64.deb
+  when: "'dropbox' not in ansible_facts.packages"
 
+- name: Install hub
+  snap:
+    name: hub
+    classic: true
+
+- name: Install Slack
+  snap:
+    name: slack
+    classic: true
+
+- name: Install pre-commit
+  pip:
+    name: pre-commit
+
+- name: Remove Unused Packages
+  apt:
+    force_apt_get: true
+    autoclean: true

@@ -1,3 +1,4 @@
+---
 - hosts: localhost
   tasks:
 
@@ -10,22 +11,22 @@
       become: true
       when: ansible_env.WORKSTATION is defined
       tags:
-          - packages
+        - packages
 
     - name: Install Yubico Tools
       include: tasks/yubico.yml
       become: true
       when: ansible_env.WORKSTATION is defined
       tags:
-          - yubico
-          - yubikey
+        - yubico
+        - yubikey
 
     - name: Update Alternatives
       include: tasks/alternatives.yml
       become: true
       when: ansible_env.WORKSTATION is defined
 
-    - name: Install docker 
+    - name: Install docker
       include: tasks/docker.yml
       become: true
       when: ansible_env.WORKSTATION is defined
@@ -33,7 +34,7 @@
     - name: Install dnsmasq
       include: tasks/dnsmasq.yml
       become: true
-      when: 
+      when:
         - ansible_env.WORKSTATION is defined
         - "'network-manager' in ansible_facts.packages"
 
@@ -52,18 +53,16 @@
       become: true
       when: ansible_env.WORKSTATION is defined
       tags:
-          - 1p
+        - 1p
 
     - name: Install Local User and Group Membership
       include: tasks/user.yml
       become: true
       when: ansible_env.WORKSTATION is defined
       tags:
-          - user
+        - user
 
     - name: Install User Packages
       include: tasks/user_packages.yml
-      become: true
-      become_user: hootieben
       tags:
-          - user
+        - user
