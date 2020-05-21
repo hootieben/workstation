@@ -31,9 +31,6 @@
       - autorandr
       - tlp
       - rofi
-- name: Gather Package Facts
-  package_facts:
-    manager: auto
 
 - name: Install Chrome
   apt:
