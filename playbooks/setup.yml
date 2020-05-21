@@ -39,7 +39,9 @@
     - name: Install AWS CLI
       include: tasks/aws_cli.yml
       become: true
-      when: ansible_env.WORKSTATION is defined
+      when:
+        - ansible_env.WORKSTATION is defined
+        - not ansible_check_mode
 
     - name: Install 1P CLI
       include: tasks/1password.yml

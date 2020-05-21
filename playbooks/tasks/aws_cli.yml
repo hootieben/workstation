@@ -1,9 +1,26 @@
 ---
-- name: Get AWS CLI
-  unarchive:
-      src: https://s3.amazonaws.com/aws-cli/awscli-bundle.zip
-      dest: /tmp
-      remote_src: true
+- name: Check for AWS CLI
+  stat:
+    path: /usr/local/bin/aws
+  register: awscli
+  tags:
+    - awscli
 
-- name: Install AWS CLI
-  command: /tmp/awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+- name: Get and Install AWS CLI
+  block:
+    - name: Create awscli tmp directory
+      tempfile:
+        state: directory
+        prefix: awscli
+      register: awscli_tmp
+    - name: Get AWS CLI v2
+      unarchive:
+        src: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+        dest: "{{ awscli_tmp.path }}"
+        remote_src: true
+    - name: Install AWS CLI
+      # yamllint disable-line rule:line-length
+      command: "{{ awscli_tmp.path }}/install -i /usr/local/aws -b /usr/local/bin/aws"
+  when: not awscli.stat.exists
+  tags:
+    - awscli
