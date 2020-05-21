@@ -31,13 +31,6 @@
       become: true
       when: ansible_env.WORKSTATION is defined
 
-    - name: Install dnsmasq
-      include: tasks/dnsmasq.yml
-      become: true
-      when:
-        - ansible_env.WORKSTATION is defined
-        - "'network-manager' in ansible_facts.packages"
-
     - name: Install Go
       include: tasks/go.yml
       become: true
