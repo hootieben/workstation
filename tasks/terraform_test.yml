@@ -1,0 +1,18 @@
+---
+- name: Check if tfenv exists
+  stat:
+    path: "~{{ user }}/.tfenv/bin/tfenv"
+- name: Get raw tfenv version
+  command: "~{{ user }}/.tfenv/bin/tfenv --version"
+  register: tfenv_raw_ver
+  changed_when: false
+- name: Parse tfenv version
+  set_fact:
+    tfenv_cur_ver: "{{ tfenv_raw_ver.stdout.split()[1] }}"
+- name: Test TFENV Version
+  fail:
+    msg: "Incorrect tfenv version. Expected {{ tfenv_ver }}"
+  when: tfenv_cur_ver != tfenv_ver
+- name: TFENV Installed
+  set_fact:
+    tfenv_installed: true

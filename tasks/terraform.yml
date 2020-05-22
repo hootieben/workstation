@@ -1,23 +1,28 @@
 ---
-- name: Check if tfenv exists
-  stat:
-    path: "{{ ansible_env.HOME }}/.tfenv/bin/tfenv"
-  register: tfenv
+- name: Check Terragrunt Install
+  block:
+    - include_tasks: terragrunt_test.yml
+  rescue:
+    - name: Install TFENV
+      git:
+        repo: https://github.com/tfutils/tfenv.git
+        dest: "~{{ user }}/.tfenv"
+        version: "v{{ tfenv_ver }}"
+        force: true
+    - include_tasks: terragrunt_test.yml
   tags:
     - tf
     - tfenv
 
-- name: Install TFENV and Terraform
-  block:
-    - name: Install TFENV
-      git:
-        repo: https://github.com/tfutils/tfenv.git
-        dest: "{{ ansible_env.HOME }}/.tfenv"
-        update: false
-        version: v2.0.0
-    - name: Get Terraform
-      command: "{{ ansible_env.HOME }}/.tfenv/bin/tfenv install {{ tfver }}"
-  when: not tfenv.stat.exists
+- name: Get Installed Terraform Versions
+  command: "~{{ user }}/.tfenv/bin/tfenv list"
+  changed_when: false
+  register: tf_installed
+  when: tfenv_installed
+
+- name: Get Terraform
+  command: "~{{ user }}/.tfenv/bin/tfenv install {{ tfver }}"
+  when: tfver not in tf_installed.stdout
   tags:
     - tf
     - tfenv
