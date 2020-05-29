@@ -1,7 +1,7 @@
 ---
 - name: Check Terragrunt Install
   block:
-    - include_tasks: terragrunt_test.yml
+    - include_tasks: terraform_test.yml
   rescue:
     - name: Install TFENV
       git:
@@ -9,7 +9,7 @@
         dest: "~{{ user }}/.tfenv"
         version: "v{{ tfenv_ver }}"
         force: true
-    - include_tasks: terragrunt_test.yml
+    - include_tasks: terraform_test.yml
   tags:
     - tf
     - tfenv
