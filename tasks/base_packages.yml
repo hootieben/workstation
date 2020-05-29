@@ -26,7 +26,7 @@
       - jq
       - xautolock
       - blueman
-      - python-pip
+      - python3-pip
       - chromium-browser
       - autorandr
       - tlp
