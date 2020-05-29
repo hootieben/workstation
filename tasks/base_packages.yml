@@ -58,6 +58,13 @@
     deb: https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2019.02.14_amd64.deb
   when: "'dropbox' not in ansible_facts.packages"
 
+- name: Install delta
+  apt:
+    force_apt_get: true
+    # yamllint disable-line rule:line-length
+    deb: https://github.com/dandavison/delta/releases/download/0.1.1/git-delta_0.1.1_amd64.deb
+  when: "'delta' not in ansible_facts.packages"
+
 - name: Install hub
   snap:
     name: hub
