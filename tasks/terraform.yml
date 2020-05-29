@@ -19,6 +19,7 @@
   changed_when: false
   register: tf_installed
   when: tfenv_installed
+  ignore_errors: true
 
 - name: Get Terraform
   command: "~{{ user }}/.tfenv/bin/tfenv install {{ tfver }}"
