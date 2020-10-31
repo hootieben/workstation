@@ -1,0 +1,23 @@
+---
+- name: "(Vagrant) Check if Vagrant Present"
+  stat:
+    path: "{{ ansible_env.HOME }}/.local/bin/vagrant"
+  register: vagrant_stat
+
+- name: "(Vagrant) Check Vagrant Version"
+  command: "{{ ansible_env.HOME }}/.local/bin/vagrant --version"
+  register: vagrant_ver
+  when: vagrant_stat.stat.exists
+  changed_when: false
+  failed_when: false
+
+- name: "(Vagrant) Download and Install Vagrant {{ vagrant.version }}"
+  unarchive:
+    remote_src: true
+    src: "https://releases.hashicorp.com/vagrant/{{ vagrant.version }}/vagrant_{{ vagrant.version }}_linux_amd64.zip"
+    dest: "{{ ansible_env.HOME }}/.local/bin"
+    mode: 0755
+  when:
+    - not vagrant_stat.stat.exists or
+      vagrant_ver is skipped or
+      vagrant.version not in vagrant_ver.stdout

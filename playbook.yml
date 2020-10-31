@@ -1,0 +1,32 @@
+---
+- hosts: localhost
+  connection: local
+
+  vars:
+    vagrant:
+      version: 2.2.10
+
+  tasks:
+    - name: Install Virtualbox
+      become: true
+      import_tasks: tasks/virtualbox.yml
+      tags:
+        - virtualbox
+        - vbox
+
+    - name: Install Docker
+      become: true
+      import_tasks: tasks/docker.yml
+      tags:
+        - docker
+
+    - name: Install Vagrant
+      import_tasks: tasks/vagrant.yml
+      tags:
+        - vagrant
+
+  handlers:
+    - name: Start/Restart Docker
+      service:
+        name: docker
+        state: restarted
