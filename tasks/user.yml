@@ -1,8 +1,0 @@
----
-- name: Local User Groups and Creation
-  user:
-    name: hootieben
-    shell: /bin/zsh
-    append: true
-    groups: sudo, adm, docker
-  register: lu

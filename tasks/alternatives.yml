@@ -1,5 +1,0 @@
----
-- name: Update Default Editor
-  alternatives:
-    name: editor
-    path: /usr/bin/nvim
