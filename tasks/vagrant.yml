@@ -3,10 +3,12 @@
   stat:
     path: "{{ ansible_env.HOME }}/.local/bin/vagrant"
   register: vagrant_stat
+  check_mode: false
 
 - name: "(Vagrant) Check Vagrant Version"
   command: "{{ ansible_env.HOME }}/.local/bin/vagrant --version"
   register: vagrant_ver
+  check_mode: false
   when: vagrant_stat.stat.exists
   changed_when: false
   failed_when: false
