@@ -1,0 +1,25 @@
+---
+- name: "(Golang) Check if Golang Present"
+  stat:
+    path: "/usr/local/go/bin/go"
+  register: golang_stat
+  check_mode: false
+
+- name: "(Golang) Check Golang Version"
+  command: "/usr/local/go/bin/go version"
+  register: golang_ver
+  check_mode: false
+  when: golang_stat.stat.exists
+  changed_when: false
+  failed_when: false
+
+- name: "(Golang) Download and Install  Golang {{ golang.version }}"
+  unarchive:
+    remote_src: true
+    src: "https://golang.org/dl/go{{ golang.version }}.linux-amd64.tar.gz"
+    dest: "/usr/local"
+    mode: 0755
+  when:
+    - not golang_stat.stat.exists or
+      golang_ver is skipped or
+      golang.version not in golang_ver.stdout

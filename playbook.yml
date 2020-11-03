@@ -5,8 +5,16 @@
   vars:
     vagrant:
       version: 2.2.10
+    golang:
+      version: 1.15.3
 
   tasks:
+    - name: Golang
+      become: true
+      import_tasks: tasks/golang.yml
+      tags:
+        - golang
+
     - name: Install Virtualbox
       become: true
       import_tasks: tasks/virtualbox.yml
