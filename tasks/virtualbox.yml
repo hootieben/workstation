@@ -1,26 +1,7 @@
 ---
-- name: (Virtualbox) Add Oracle Apt Keys
-  apt_key:
-    id: B9F8D658297AF3EFC18D5CDFA2F683C52980AECF
-    url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
-    state: present
-
-- name: (Virtualbox) Add Repo
-  apt_repository:
-    repo: "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian {{ ansible_distribution_release }} contrib"
-    state: present
-
-- name: (Virtualbox) Set Ext-Pack Debconf Response
-  debconf:
-    name: virtualbox-ext-pack
-    question: virtualbox-ext-pack/license
-    value: "True"
-    vtype: boolean
-
 - name: (Virtualbox) Install Virtualbox Packages
   apt:
     pkg:
-      - virtualbox-6.1
-      - virtualbox-ext-pack
+      - virtualbox
     state: present
     update_cache: true
