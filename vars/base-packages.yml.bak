@@ -1,0 +1,27 @@
+---
+base:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - easy-rsa
+  - fzf
+  - gnupg-agent
+  - gnupg2
+  - pcscd
+  - pcsctools
+  - resolvconf  # TODO: Test if using resolved?
+  - ripgrep
+  - scdaemon
+  - silversearcher-ag
+  - software-properties-common
+  - zsh
+
+# i3xrocks:
+#   - i3xrocks-openvpn
+
+# network-manager:
+#   - network-manager-openvpn  # TODO: check for network-manager
+#   - openvpn-systemd-resolved  # TODO: Test if using resolved?
+
+# network-manager-gnome:
+#   - network-manager-openvpn-gnome  # TODO: check for gnome first - network-manager-gnome

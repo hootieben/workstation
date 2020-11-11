@@ -1,0 +1,36 @@
+---
+packages:
+  base:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - easy-rsa
+    - fzf
+    - gnupg-agent
+    - gnupg2
+    - pcsc-tools
+    - pcscd
+    - resolvconf
+    - ripgrep
+    - scdaemon
+    - silversearcher-ag
+    - software-properties-common
+    - unzip
+    - zsh
+  i3xrocks:
+    - i3xrocks-battery
+    - i3xrocks-bluetooth
+    - i3xrocks-cpu-usage
+    - i3xrocks-key-indicator
+    - i3xrocks-memory
+    - i3xrocks-next-workspace
+    - i3xrocks-nm-vpn
+    - i3xrocks-temp
+    - i3xrocks-time
+    - i3xrocks-volume
+    - i3xrocks-wifi
+  network-manager:
+    - network-manager-openvpn
+    - openvpn-systemd-resolved
+  network-manager-gnome:
+    - network-manager-openvpn-gnome

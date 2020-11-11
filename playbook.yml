@@ -9,6 +9,12 @@
       version: 1.15.3
 
   tasks:
+    - name: Install Base Packages
+      become: true
+      import_tasks: tasks/sys-packages.yml
+      tags:
+        - packages
+
     - name: Golang
       become: true
       import_tasks: tasks/golang.yml
@@ -35,6 +41,7 @@
 
   handlers:
     - name: Start/Restart Docker
+      become: true
       service:
         name: docker
         state: restarted

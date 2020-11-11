@@ -1,0 +1,32 @@
+---
+- name: (Syspackages) Get installed packages
+  package_facts:
+
+- name: (Syspackages) Load package list
+  include_vars:
+    # file: ../vars/sys-packages.yml
+    file: base-packages.yml
+
+- name: (Syspackages) Set base packages list
+  set_fact:
+    packagelist: "{{ packages['base'] }}"
+
+- name: (Syspackages) Include i3xrocks packages
+  set_fact:
+    packagelist: "{{ (packagelist + packages['i3xrocks']) }}"
+  when:
+    - "'i3xrocks' in ansible_facts.packages"
+
+- name: (Syspackages) Include network manager
+  set_fact:
+    packagelist: "{{ (packagelist + packages['network-manager']) }}"
+  when: "'network-manager' in ansible_facts.packages"
+
+- name: (Syspackages) Include network manager gnome
+  set_fact:
+    packagelist: "{{ (packagelist) + packages['network-manager-gnome'] }}"
+  when: "'network-manager-gnome' in ansible_facts.packages"
+
+- name: (Syspackages) Install System Apt Package
+  apt:
+    pkg: "{{ packagelist }}"
