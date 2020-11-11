@@ -2,11 +2,6 @@
 - name: (Syspackages) Get installed packages
   package_facts:
 
-- name: (Syspackages) Load package list
-  include_vars:
-    # file: ../vars/sys-packages.yml
-    file: base-packages.yml
-
 - name: (Syspackages) Set base packages list
   set_fact:
     packagelist: "{{ packages['base'] }}"

@@ -1,4 +1,20 @@
 ---
+vagrant:
+  version: 2.2.10
+golang:
+  version: 1.15.3
+rbenv:
+  version: v1.0.0
+  env: user
+  default_ruby: 2.7.2
+  rubies:
+    - version: 2.7.2
+    - version: 2.4.3
+    - version: 2.4.9
+rbenv_users:
+  - hootieben
+  # - vagrant
+
 packages:
   base:
     - apt-transport-https
