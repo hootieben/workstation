@@ -1,0 +1,25 @@
+---
+- name: "(Hub) Check if Hub Present"
+  stat:
+    path: "{{ ansible_env.HOME }}/.local/bin/hub"
+  register: hub_stat
+  check_mode: false
+
+- name: "(Hub) Check Hub Version"
+  command: "{{ ansible_env.HOME }}/.local/bin/hub --version"
+  register: hub_ver
+  check_mode: false
+  when: hub_stat.stat.exists
+  changed_when: false
+  failed_when: false
+
+- name: "(Hub) Download and Install Hub {{ hub.version }}"
+  unarchive:
+    remote_src: true
+    src: "https://github.com/github/hub/releases/download/v{{ hub.version }}/hub-linux-amd64-{{ hub.version }}.tgz"
+    dest: "{{ ansible_env.HOME }}/.local/bin"
+    mode: 0755
+  when:
+    - not hub_stat.stat.exists or
+      hub_ver is skipped or
+      hub.version not in hub_ver.stdout

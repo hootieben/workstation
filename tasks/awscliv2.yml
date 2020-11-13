@@ -1,0 +1,65 @@
+---
+- name: "(AWS CLI v2) Check for AWS CLI"
+  command: aws --version
+  register: aws_cli_version_check
+  ignore_errors: true
+  check_mode: false
+  changed_when: false
+  tags:
+    - awscli
+
+- name: "(AWS CLI v2) Install AWS CLI v2"
+  block:
+    - name: "(AWS CLI v2-packages) Check for AWS PGP Key"
+      command: "gpg -k {{ aws_gpg_key_id }}"
+      check_mode: false
+      register: aws_key_check
+      ignore_errors: true
+      changed_when: false
+
+    - name: "(AWS CLI v2) Import AWS PGP Key"
+      command: gpg --import
+      args:
+        stdin: "{{ aws_gpg_key }}"
+      when:
+        - aws_key_check.rc != 0
+        - not "already in secret keyring" in aws_key_check.stderr
+
+    - name: "(AWS CLI v2) Fetch AWS CLI v2 package and signature"
+      get_url:
+        url: "https://awscli.amazonaws.com/awscli-exe-linux-{{ ansible_architecture }}.{{ item }}"
+        dest: "/tmp/awscliv2.{{ item }}"
+        mode: '0644'
+      loop:
+        - "zip"
+        - "zip.sig"
+
+    - name: "(AWS CLI v2) Verify AWS CLI v2 Archive"
+      command: gpg --verify /tmp/awscliv2.zip.sig /tmp/awscliv2.zip
+      register: aws_cli_verify_result
+
+    - name: "(AWS CLI v2-packages) Unzip AWS CLI v2 Archive"
+      unarchive:
+        remote_src: true
+        src: /tmp/awscliv2.zip
+        dest: /tmp
+        mode: 0755
+
+    - name: "(AWS CLI v2) Install AWS CLI v2"
+      command: /tmp/aws/install -i ~/.local/aws -b ~/.local/bin
+
+  when:
+    - aws_cli_version_check.rc != 0
+  tags:
+    - awscli
+
+- name: "(AWS CLI v2-packages) Cleanup AWS CLI v2 Install Files"
+  file:
+    path: "/tmp/{{ item }}"
+    state: absent
+  loop:
+    - aws
+    - awscliv2.zip
+    - awscliv2.zip.sig
+  tags:
+    - awscli

@@ -1,0 +1,36 @@
+---
+- name: "(NVIM) Check if NVIM Present"
+  stat:
+    path: /usr/local/bin/nvim
+  register: nvim_stat
+  check_mode: false
+
+- name: "(NVIM) Check NVIM Version"
+  command: "/usr/local/bin/nvim --version"
+  register: nvim_ver
+  check_mode: false
+  when: nvim_stat.stat.exists
+  changed_when: false
+  failed_when: false
+
+- name: "(NVIM) Download and Install NVIM {{ nvim.version }}"
+  get_url:
+    url: "https://github.com/neovim/neovim/releases/download/{{ nvim.version }}/nvim.appimage"
+    dest: /usr/local/bin/nvim
+    mode: 0755
+  when:
+    - not nvim_stat.stat.exists or
+      nvim_ver is skipped or
+      nvim.version not in nvim_ver.stdout
+
+- name: "(NVIM) Set alternatives"
+  community.general.alternatives:
+    name: "{{ item }}"
+    path: "/usr/local/bin/nvim"
+    priority: 110
+  loop:
+    - ex
+    - vi
+    - view
+    - vim
+    - vimdiff

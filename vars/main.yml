@@ -14,6 +14,17 @@ rbenv:
 rbenv_users:
   - hootieben
   # - vagrant
+delta:
+  version: 0.4.4
+
+hub:
+  version: 2.14.2
+
+packer:
+  version: 1.6.5
+
+nvim:
+  version: v0.4.4
 
 packages:
   base:

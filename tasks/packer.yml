@@ -1,0 +1,25 @@
+---
+- name: "(Packer) Check if Packer Present"
+  stat:
+    path: "{{ ansible_env.HOME }}/.local/bin/packer"
+  register: packer_stat
+  check_mode: false
+
+- name: "(Packer) Check Packer Version"
+  command: "{{ ansible_env.HOME }}/.local/bin/packer --version"
+  register: packer_ver
+  check_mode: false
+  when: packer_stat.stat.exists
+  changed_when: false
+  failed_when: false
+
+- name: "(Packer) Download and Install Packer {{ packer.version }}"
+  unarchive:
+    remote_src: true
+    src: "https://releases.hashicorp.com/packer/{{ packer.version }}/packer_{{ vagrant.version }}_linux_amd64.zip"
+    dest: "{{ ansible_env.HOME }}/.local/bin"
+    mode: 0755
+  when:
+    - not packer_stat.stat.exists or
+      packer_ver is skipped or
+      packer.version not in packer_ver.stdout

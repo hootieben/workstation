@@ -42,11 +42,55 @@
         - docker
         - system
 
+    - name: Install NVIM
+      become: true
+      import_tasks: tasks/nvim.yml
+      tags:
+        - nvim
+        - system
+
     - name: Install Vagrant
       import_tasks: tasks/vagrant.yml
       tags:
         - vagrant
-        - system
+        - user
+
+    - name: Install Packer
+      import_tasks: tasks/packer.yml
+      tags:
+        - packer
+        - user
+
+    - name: Install Delta
+      import_tasks: tasks/delta.yml
+      tags:
+        - delta
+        - user
+
+    - name: Install Hub
+      import_tasks: tasks/hub.yml
+      tags:
+        - hub
+        - user
+
+    - name: Install AWS CLI v2
+      import_tasks: tasks/awscliv2.yml
+      tags:
+        - awscli
+        - aws
+        - awscliv2
+        - user
+
+    - name: Install Neovim Gems
+      gem:
+        name: neovim
+      environment:
+        PATH: "{{ ansible_env.HOME }}/.shims/bin:{{ ansible_env.PATH }}"
+      tags:
+        - user
+        - ruby
+        - gems
+        - gem
 
   handlers:
     - name: Start/Restart Docker
