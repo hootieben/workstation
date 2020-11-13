@@ -21,3 +21,7 @@ repos:
     rev: 2.1.4
     hooks:
       - id: shellcheck
+  - repo: https://github.com/awslabs/git-secrets.git
+    rev: master
+    hooks:
+      - id: git-secrets
