@@ -20,6 +20,9 @@ delta:
 hub:
   version: 2.14.2
 
+shellcheck:
+  version: v0.7.1
+
 packer:
   version: 1.6.5
 

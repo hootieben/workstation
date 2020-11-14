@@ -74,6 +74,12 @@
         - delta
         - user
 
+    - name: Install Shellcheck
+      import_tasks: tasks/shellcheck.yml
+      tags:
+        - shellcheck
+        - user
+
     - name: Install Hub
       import_tasks: tasks/hub.yml
       tags:

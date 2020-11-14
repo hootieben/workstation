@@ -1,0 +1,28 @@
+---
+- name: "(Shellcheck) Check if Shellcheck Present"
+  stat:
+    path: "{{ ansible_env.HOME }}/.local/bin/shellcheck"
+  register: shellcheck_stat
+  check_mode: false
+
+- name: "(Shellcheck) Check Shellcheck Version"
+  command: "{{ ansible_env.HOME }}/.local/bin/shellcheck --version"
+  register: shellcheck_ver
+  check_mode: false
+  when: shellcheck_stat.stat.exists
+  changed_when: false
+  failed_when: false
+
+- name: "(Shellcheck) Download and Install Shellcheck {{ shellcheck.version }}"
+  unarchive:
+    remote_src: true
+    src: "https://github.com/koalaman/shellcheck/releases/download/{{ shellcheck.version }}/shellcheck-{{ shellcheck.version }}.linux.x86_64.tar.xz"
+    dest: "{{ ansible_env.HOME }}/.local/bin"
+    mode: 0755
+    extra_opts:
+      - --strip-components=1
+      - "shellcheck-{{ shellcheck.version }}/shellcheck"
+  when:
+    - not shellcheck_stat.stat.exists or
+      shellcheck_ver is skipped or
+      shellcheck.version not in shellcheck_ver.stdout
