@@ -1,0 +1,19 @@
+---
+- name: "(Fonts) Create User Font Dir"
+  file:
+    path: "{{ ansible_env.HOME }}/.fonts"
+    state: directory
+    owner: '{{ ansible_env.USER }}'
+    group: '{{ ansible_env.USER }}'
+    mode: 0755
+
+- name: "(Fonts) Get Fonts"
+  get_url:
+    url: "https://github.com/romkatv/powerlevel10k-media/raw/master/{{ item|urlencode }}"
+    dest: "{{ ansible_env.HOME }}/.fonts/{{ item }}"
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
+    mode: 0664
+  with_items:
+      - "{{ fonts['p10k'] }}"
+  notify: 'Rebuild Fonts'

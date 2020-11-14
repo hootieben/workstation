@@ -62,3 +62,10 @@ packages:
     - openvpn-systemd-resolved
   network-manager-gnome:
     - network-manager-openvpn-gnome
+
+fonts:
+  p10k:
+    - 'MesloLGS NF Regular.ttf'
+    - 'MesloLGS NF Bold.ttf'
+    - 'MesloLGS NF Italic.ttf'
+    - 'MesloLGS NF Bold Italic.ttf'

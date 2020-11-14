@@ -49,6 +49,13 @@
         - nvim
         - system
 
+    - name: Install P10K Fonts
+      import_tasks: tasks/p10kfonts.yml
+      tags:
+        - user
+        - p10k
+        - fonts
+
     - name: Install Vagrant
       import_tasks: tasks/vagrant.yml
       tags:
@@ -98,6 +105,11 @@
       service:
         name: docker
         state: restarted
+
+    - name: Rebuild Fonts
+      become: true
+      command: 'fc-cache -v -f'
+
 
   roles:
     - role: zzet.rbenv
