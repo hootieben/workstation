@@ -1,0 +1,6 @@
+---
+- name: (Python-user) Install python user packages
+  pip:
+    name: "{{ packages['python-user'] }}"
+    extra_args: --user
+    executable: pip3

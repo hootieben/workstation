@@ -105,6 +105,12 @@
         - gems
         - gem
 
+    - name: Install Python User Packages
+      import_tasks: tasks/python-user.yml
+      tags:
+        - user
+        - python
+
   handlers:
     - name: Start/Restart Docker
       become: true

@@ -65,6 +65,13 @@ packages:
     - openvpn-systemd-resolved
   network-manager-gnome:
     - network-manager-openvpn-gnome
+  python-user:
+    - botocore
+    - boto3
+    - redis
+    - pipx
+    - pre-commit
+    - yamllint
 
 fonts:
   p10k:
