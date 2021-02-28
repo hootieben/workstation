@@ -1,0 +1,46 @@
+---
+- name: (Yubico) Install Yubico Packages
+  block:
+    - name: (Yubico) Install repo key
+      become: true
+      apt_key:
+        keyserver: hkp://keyserver.ubuntu.com:80
+        id: "{{ yubico['apt']['key'] }}"
+
+    - name: (Yubico) Install repo
+      become: true
+      apt_repository:
+        repo: ppa:yubico/stable
+
+    - name: (Yubico) Install packages
+      apt:
+        pkg: "{{ yubico['packages'] }}"
+
+    - name: (Yubico) Allow sudo
+      lineinfile:
+        path: /etc/pam.d/sudo
+        insertbefore: '^@include common-auth'
+        firstmatch: true
+        line: 'auth       sufficient   pam_yubico.so mode=challenge-response'
+        state: present
+        backup: true
+
+    - name: (Yubico) Require for GDM login
+      lineinfile:
+        path: /etc/pam.d/gdm-password
+        insertafter: '^@include common-auth'
+        firstmatch: true
+        line: 'auth       required   pam_yubico.so mode=challenge-response'
+        state: present
+        backup: true
+
+    - name: (Yubico) Require for TTY login
+      lineinfile:
+        path: /etc/pam.d/login
+        insertafter: '^@include common-auth'
+        firstmatch: true
+        line: 'auth       required   pam_yubico.so mode=challenge-response'
+        state: present
+        backup: true
+
+  become: true

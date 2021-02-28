@@ -111,6 +111,11 @@
         - user
         - python
 
+    - name: Install Yubico Functionality
+      import_tasks: tasks/yubico.yml
+      tags:
+        - yubico
+
   handlers:
     - name: Start/Restart Docker
       become: true
