@@ -16,7 +16,7 @@
 - name: "(Packer) Download and Install Packer {{ packer.version }}"
   unarchive:
     remote_src: true
-    src: "https://releases.hashicorp.com/packer/{{ packer.version }}/packer_{{ vagrant.version }}_linux_amd64.zip"
+    src: "https://releases.hashicorp.com/packer/{{ packer.version }}/packer_{{ packer.version }}_linux_amd64.zip"
     dest: "{{ ansible_env.HOME }}/.local/bin"
     mode: 0755
   when:
