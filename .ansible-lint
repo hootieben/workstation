@@ -4,5 +4,5 @@ exclude_paths:
   - ./molecule/
 skip_list:
   #- '106'
-  - '701'
-  - '703'
+  - 'meta-no-info'
+  - 'meta-incorrect'
