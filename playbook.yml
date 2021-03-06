@@ -74,6 +74,12 @@
         - delta
         - user
 
+    - name: Install Bat
+      import_tasks: tasks/bat.yml
+      tags:
+        - bat
+        - user
+
     - name: Install Shellcheck
       import_tasks: tasks/shellcheck.yml
       tags:
