@@ -1,9 +1,9 @@
 ---
 ansible_shell_allow_world_readable_temp: true
 vagrant:
-  version: 2.2.10
+  version: 2.2.14
 golang:
-  version: 1.15.3
+  version: "1.16"
 rbenv:
   version: v1.0.0
   env: user
