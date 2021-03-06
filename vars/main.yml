@@ -1,4 +1,5 @@
 ---
+ansible_shell_allow_world_readable_temp: true
 vagrant:
   version: 2.2.10
 golang:
