@@ -1,0 +1,11 @@
+---
+homebrew_installed_packages:
+  - pinentry-mac
+
+homebrew_uninstalled_packages:
+  - gpg
+
+homebrew_cask_appdir: /Applications
+homebrew_cask_apps:
+  - firefox
+  - gpg-suite-no-mail

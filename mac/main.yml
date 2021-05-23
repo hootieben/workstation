@@ -1,0 +1,8 @@
+---
+- hosts: all
+  vars_files:
+    - default.config.yml
+
+  roles:
+    - role: geerlingguy.homebrew
+# For Mac, create ~/Library/LaunchAgents and add the plist files in files/ 
