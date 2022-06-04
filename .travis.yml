@@ -1,8 +1,0 @@
-dist: bionic
-
-jobs:
-  include:
-    - stage: "Install Packages"
-      env:
-        - WORKSTATION=1
-      script: ./setup.sh
