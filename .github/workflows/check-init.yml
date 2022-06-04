@@ -10,11 +10,13 @@ jobs:
   check_init:
     name: Verify init.sh functionality
     runs-on: ubuntu-20.04
+    env:
+      DEBIAN_FRONTEND: noninteractive
     steps:
       - name: Install shellcheck
         run: |
           sudo apt-get update
-          sudo install shellcheck
+          sudo apt-get install shellcheck
 
       - name: Checkout repository
         uses: actions/checkout@v3
