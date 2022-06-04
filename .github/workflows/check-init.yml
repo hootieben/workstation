@@ -27,4 +27,4 @@ jobs:
 
       - name: Run init.sh
         run: |
-          sudo init.sh
+          sudo ./init.sh
