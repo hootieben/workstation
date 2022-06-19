@@ -68,5 +68,10 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
+  config.vm.provision "shell",
+    env: {"DEBIAN_FRONTEND" => "noninteractive"},
+    inline: "apt-get update && apt-get --yes upgrade",
+    name: "Intial update and upgrade",
+    reboot: true
   config.vm.provision "shell", path: "init.sh", name: "Workstation Init"
 end
