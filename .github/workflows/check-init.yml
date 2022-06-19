@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - 'init.sh'
+      - 'ansible-init.sh'
 
 jobs:
   check_init:
@@ -21,10 +22,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Run shellcheck
+      - name: Init Shellcheck
         run: |
-          shellcheck init.sh
+          shellcheck init.sh ansible-init.sh
 
       - name: Run init.sh
         run: |
           sudo ./init.sh
+
+      - name: Run ansible-init.sh
+        run: |
+          ./ansible-init.sh
