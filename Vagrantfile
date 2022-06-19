@@ -74,4 +74,5 @@ Vagrant.configure("2") do |config|
     name: "Intial update and upgrade",
     reboot: true
   config.vm.provision "shell", path: "init.sh", name: "Workstation Init"
+  config.vm.provision "shell", path: "ansible-init.sh", privileged: false, name: "Ansible Init"
 end
