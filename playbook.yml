@@ -1,0 +1,7 @@
+- hosts: localhost
+  vars:
+    docker_users:
+      - vagrant
+
+  roles:
+    - geerlingguy.docker
