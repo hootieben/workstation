@@ -1,4 +1,4 @@
-name: 'Check init script'
+name: 'Check init scripts'
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   check_init:
-    name: Verify init.sh functionality
+    name: Verify init script functionality
     runs-on: ubuntu-20.04
     env:
       DEBIAN_FRONTEND: noninteractive
