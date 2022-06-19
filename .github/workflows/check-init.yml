@@ -1,14 +1,15 @@
-name: 'Check init script'
+name: 'Check init scripts'
 
 on:
   workflow_dispatch:
   push:
     paths:
       - 'init.sh'
+      - 'ansible-init.sh'
 
 jobs:
   check_init:
-    name: Verify init.sh functionality
+    name: Verify init script functionality
     runs-on: ubuntu-20.04
     env:
       DEBIAN_FRONTEND: noninteractive
@@ -21,10 +22,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Run shellcheck
+      - name: Init Shellcheck
         run: |
-          shellcheck init.sh
+          shellcheck init.sh ansible-init.sh
 
       - name: Run init.sh
         run: |
           sudo ./init.sh
+
+      - name: Run ansible-init.sh
+        run: |
+          ./ansible-init.sh

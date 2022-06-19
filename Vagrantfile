@@ -13,7 +13,6 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "ubuntu/focal64"
-  config.ssh.config = "ssh-config"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -68,5 +67,11 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
-  config.vm.provision "shell", path: "init.sh"
+  config.vm.provision "shell",
+    env: {"DEBIAN_FRONTEND" => "noninteractive"},
+    inline: "apt-get update && apt-get --yes upgrade",
+    name: "Intial update and upgrade",
+    reboot: true
+  config.vm.provision "shell", path: "init.sh", name: "Workstation Init"
+  config.vm.provision "shell", path: "ansible-init.sh", privileged: false, name: "Ansible Init"
 end
