@@ -1,7 +1,7 @@
 - hosts: localhost
   vars:
     docker_users:
-      - {{ ansible_user_id }}
+      - "{{ ansible_user_id }}"
 
   roles:
     - geerlingguy.docker
