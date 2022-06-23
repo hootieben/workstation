@@ -2,7 +2,8 @@
 
 set -exu
 
-GITBRANCH=v3
+DEFAULTBRANCH="main"
+GITBRANCH="${1:-$DEFAULTBRANCH}"
 REPOSRC=https://github.com/hootieben/workstation.git
 LOCALREPO=~/.config/workstation
 
