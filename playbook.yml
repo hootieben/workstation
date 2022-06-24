@@ -35,4 +35,4 @@
         - delta
 
   roles:
-    - geerlingguy.docker
+      - { role: geerlingguy.docker, become: true }
