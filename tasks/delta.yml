@@ -1,0 +1,4 @@
+---
+- name: Install Delta
+  ansible.builtin.apt:
+    deb: https://github.com/dandavison/delta/releases/download/0.13.0/git-delta_0.13.0_amd64.deb

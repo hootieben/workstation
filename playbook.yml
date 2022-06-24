@@ -24,5 +24,15 @@
       tags:
         - yubico
 
+    - name: Include delta
+      ansible.builtin.include_tasks: tasks/delta.yml
+      args:
+        apply:
+          become: yes
+          tags:
+            - delta
+      tags:
+        - delta
+
   roles:
     - geerlingguy.docker
