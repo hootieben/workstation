@@ -3,5 +3,16 @@
     docker_users:
       - "{{ ansible_user_id }}"
 
+  pre_tasks:
+    - name: Base packages
+      ansible.builtin.include_tasks: tasks/base_packages.yml
+      args:
+        apply:
+          become: yes
+          tags:
+            - base_packages
+      tags:
+        - base_packages
+
   roles:
     - geerlingguy.docker
