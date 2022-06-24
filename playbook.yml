@@ -14,5 +14,15 @@
       tags:
         - base_packages
 
+    - name: Include yubico
+      ansible.builtin.include_tasks: tasks/yubico.yml
+      args:
+        apply:
+          become: yes
+          tags:
+            - yubico
+      tags:
+        - yubico
+
   roles:
     - geerlingguy.docker
