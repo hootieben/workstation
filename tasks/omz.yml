@@ -1,0 +1,15 @@
+---
+#- name: Download OMZ
+#  ansible.builtin.get_url:
+#    url: https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+#    dest: /tmp/omz-install.sh
+#
+#- name: Run OMZ Install
+#  ansible.builtin.shell:
+#    cmd: cat /tmp/omz-install.sh | sh -s -- -y
+#
+- name: Get P10K
+  ansible.builtin.git:
+    repo: https://github.com/romkatv/powerlevel10k.git
+    dest: /home/vagrant/.oh-my-zsh/custom/themes/powerlevel10k
+    depth: 1

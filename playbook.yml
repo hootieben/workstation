@@ -34,5 +34,14 @@
       tags:
         - delta
 
+    - name: Include OMZ
+      ansible.builtin.include_tasks: tasks/omz.yml
+      args:
+        apply:
+          tags:
+            - omz
+      tags:
+        - omz
+
   roles:
       - { role: geerlingguy.docker, become: true }
