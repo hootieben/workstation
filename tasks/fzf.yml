@@ -1,0 +1,9 @@
+---
+- name: Download FZF
+  ansible.builtin.git:
+    repo: https://github.com/junegunn/fzf.git
+    dest: /home/vagrant/.fzf
+
+- name: Run FZF Install
+  ansible.builtin.shell:
+    cmd: /home/vagrant/.fzf/install

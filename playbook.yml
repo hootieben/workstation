@@ -43,5 +43,14 @@
       tags:
         - omz
 
+    - name: Include FZF
+      ansible.builtin.include_tasks: tasks/fzf.yml
+      args:
+        apply:
+          tags:
+            - fzf
+      tags:
+        - fzf
+
   roles:
       - { role: geerlingguy.docker, become: true }
