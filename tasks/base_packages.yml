@@ -21,12 +21,12 @@
       - jq
       - python3-pip
 
-# - name: Install Chrome
-#   apt:
-#     force_apt_get: true
-#     # yamllint disable-line rule:line-length
-#     deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-#   when: "'google-chrome-stable' not in ansible_facts.packages"
+- name: Install Chrome
+  apt:
+    force_apt_get: true
+    # yamllint disable-line rule:line-length
+    deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  when: "'google-chrome-stable' not in ansible_facts.packages"
 
 # - name: Install Keybase
 #   apt:
