@@ -46,6 +46,16 @@
       tags:
         - delta
 
+    - name: Include direnv
+      ansible.builtin.include_tasks: tasks/direnv.yml
+      args:
+        apply:
+          become: yes
+          tags:
+            - direnv
+      tags:
+        - direnv
+
     - name: Include OMZ
       ansible.builtin.include_tasks: tasks/omz.yml
       args:

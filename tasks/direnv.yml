@@ -1,0 +1,4 @@
+---
+- name: Install Direnv
+  ansible.builtin.apt:
+    deb: https://github.com/direnv/direnv/releases/download/v2.32.1/direnv.linux-amd64
