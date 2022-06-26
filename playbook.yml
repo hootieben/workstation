@@ -26,6 +26,16 @@
       tags:
         - yubico
 
+    - name: Include nvim
+      ansible.builtin.include_tasks: tasks/nvim.yml
+      args:
+        apply:
+          become: yes
+          tags:
+            - nvim
+      tags:
+        - nvim
+
     - name: Include delta
       ansible.builtin.include_tasks: tasks/delta.yml
       args:
