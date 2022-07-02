@@ -69,12 +69,12 @@
     - name: Include direnv
       ansible.builtin.include_tasks: tasks/direnv.yml
       args:
-        apply:
-          become: yes
-          tags:
-            - direnv
+       apply:
+         become: yes
+         tags:
+           - direnv
       tags:
-        - direnv
+       - direnv
 
     - name: Include bat
       ansible.builtin.include_tasks: tasks/bat.yml
@@ -94,7 +94,26 @@
           tags:
             - gopass 
       tags:
-        - omz
+        - gopass
+
+    - name: Include aws_cli
+      ansible.builtin.include_tasks: tasks/aws_cli.yml
+      args:
+        apply:
+          become: yes
+          tags:
+            - awscli
+      tags:
+        - awscli
+
+    - name: Include OMZ
+      ansible.builtin.include_tasks: tasks/omz.yml
+      args:
+       apply:
+         tags:
+           - omz
+      tags:
+       - omz
 
     - name: Include FZF
       ansible.builtin.include_tasks: tasks/fzf.yml
