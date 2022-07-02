@@ -86,12 +86,13 @@
       tags:
         - bat
 
-    - name: Include OMZ
-      ansible.builtin.include_tasks: tasks/omz.yml
+    - name: Include gopass
+      ansible.builtin.include_tasks: tasks/gopass.yml
       args:
         apply:
+          become: yes
           tags:
-            - omz
+            - gopass 
       tags:
         - omz
 

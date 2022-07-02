@@ -1,0 +1,4 @@
+---
+- name: Install Gopass 
+  ansible.builtin.apt:
+    deb: https://github.com/gopasspw/gopass/releases/download/v1.14.3/gopass_1.14.3_linux_amd64.deb
