@@ -6,6 +6,16 @@
       - "{{ ansible_user_id }}"
 
   pre_tasks:
+    - name: Create Local User
+      ansible.builtin.include_tasks: tasks/user.yml
+      args:
+        apply:
+          become: yes
+          tags:
+            - user
+      tags:
+        - user
+
     - name: Base packages
       ansible.builtin.include_tasks: tasks/base_packages.yml
       args:
