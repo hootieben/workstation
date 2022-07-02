@@ -20,11 +20,15 @@
       - fonts-firacode
       - jq
       - libsqlite3-dev
+      - openvpn
       - python3-pip
       - python3-venv
       - wireguard
       - wireguard-tools
       - wireguard-dkms
+      - i3xrocks-nm-vpn
+      - network-manager-openvpn
+      - network-manager-openvpn-gnome
 
 - name: Install Chrome
   apt:
