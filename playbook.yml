@@ -96,6 +96,16 @@
       tags:
         - gopass
 
+    - name: Include aws_sso_cli
+      ansible.builtin.include_tasks: tasks/aws_sso_cli.yml
+      args:
+        apply:
+          become: yes
+          tags:
+            - awsssocli
+      tags:
+        - awsssocli
+
     - name: Include aws_cli
       ansible.builtin.include_tasks: tasks/aws_cli.yml
       args:
