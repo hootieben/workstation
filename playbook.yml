@@ -56,6 +56,16 @@
       tags:
         - delta
 
+    - name: Include ripgrep 
+      ansible.builtin.include_tasks: tasks/rg.yml
+      args:
+        apply:
+          become: yes
+          tags:
+            - rg 
+      tags:
+        - rg
+
     - name: Include direnv
       ansible.builtin.include_tasks: tasks/direnv.yml
       args:
