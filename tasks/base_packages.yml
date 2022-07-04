@@ -18,6 +18,7 @@
       - scdaemon
       - pcscd
       - fonts-firacode
+      - hub
       - jq
       - libsqlite3-dev
       - openvpn
